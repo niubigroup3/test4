@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta  content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<meta  name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+   <title>主页</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
+	 <link href="https://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" rel="stylesheet">
+	 
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery-form.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script src="js/bootstrap.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+   <script src="js/metisMenu.min.js"></script>
+<!-- DataTables JavaScript -->
+   <script src="js/dataTables.bootstrap.min.js"></script>
+<!-- Custom Theme JavaScript -->
+   <script src="js/sb-admin-2.js"></script>
+   <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./javascript/insert.js"></script>
+
+<style>
+    @import url(./css/insert.css);
+</style>
+
+</head>
+
+
+<body>
+
+
+	    <!--左侧菜单栏-->
+
+        <div id="menu" class="menu">
+            <div class="pic">
+                <img src="image/BMS.png" width="170" height="80" >
+            </div>
+
+            <div class="menuInfo" id="homeMenuDiv">
+                <ul  id="homeMenu">
+                    <li><a href="/home">
+                        <img  src="image/home.png" width="24">
+                        主页</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="insert" class="menuInfo">
+                <ul id="insertMenu">
+                    <li><a href="/add">
+                        <img src="image/insert.png" width="22">
+                        销售录入</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="search" class="menuInfo">
+                <ul id="selectMenu">
+                    <li><a href="/find">
+                        <img src="image/table.png" width="23" height="21">
+                        报表查询</a>
+                    <li>
+                </ul>
+            </div>
+        </div>
+
+
+		 <!--用户名称栏 固定-->
+        <div class="usernameModule">
+            <span class="logout" th:text="${session.username.name}">
+			</span>
+            <a href="/logout" class="logout">  <img src="image/logout.png" width="20" /> </a>
+
+        </div>
+
+   <!--录入数据模块 显示主要信息-->
+	<div id="insertData" class="home">
+
+		<div class="homeTitle">
+			<span class="titlefontStyle1">
+				<br>
+<!--				<p>&nbsp 系统/<b>销售录入</b></p>-->
+				<b> &nbsp &nbsp录入记录</b>
+			</span>
+		</div>
+
+		<div class="belowBar">
+			<div class="homeTitle">
+				<span class="titlefontStyle2">
+					
+				</span>
+			</div>
+
+		<div class="insertTable">
+			<form id="searchTable" method="post" action="/insert" >
+				<div id="insertTableTitle" class="insertTableTitle">
+						<select  id="name" name="salesName" class="form-control selectModuleStyle"  onblur="validateName()">
+							<option value="" selected="selected">销售姓名</option>
+							<option value="lwj">刘文佳</option>
+							<option value="cyx">曹彦心</option>
+							<option value="yzr">颜泽荣</option>
+							<option value="jqy">金秋怡</option>
+							<option value="cl">陈乐</option>
+							<option value="czb">陈子博</option>
+							<option value="zyk">张应坤</option>
+							<option value="hl">韩蕾</option>
+						</select>
+
+						<select  id="bond" name="bondsName" class="form-control selectModuleStyle" onblur="validateBond()">
+							<option value="" selected="selected">债券类型</option>
+							<option value="zfzq">政府债券</option>
+							<option value="qyzq">企业债券</option>
+						</select>
+
+					   <input id="date" name="createdAt" class="form-control selectModuleStyle" type="date" value=""/ onblur="validateDate()">
+
+						<input id="money" name="amount" class="form-control selectModuleStyle" type="text" value="" placeholder="金额"/ onblur="validateMoney()">
+
+					<button id="addBtn" class="btn addButtonStyle" onclick="btnValidate()"> 添加</button>
+
+					 <span class="alertclass" id="Alert"></span>
+				</div>
+			</form>
+
+			<div class="tableBody">
+				<table class="table table-striped table-hover table-responsive" frame=void> 
+                      <thread>
+                        <tr>
+                          <th>ID</th>
+                          <th>姓名</th>
+                          <th>债券类型</th>
+                          <th>日期</th>
+                          <th>金额</th>
+                        </tr>
+                      </thread>
+                      <tbody> 
+                        <tr th:each ="bonds:${allRecords}">
+                            <td th:text="${bonds.id}"></td>
+                            <td th:text="${bonds.salesName}"></td>
+                            <td th:text="${bonds.bondsName}"></td>
+                            <td th:text="${bonds.createdAt}"></td>
+                            <td th:text="${bonds.amount}"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+			</div>
+		</div>
+	</div>
+ </div>
+
+    		 <div class="copyright">
+          <b class="crFont"> copyright©NiubilityTeam3</b>
+          </div>
+      
+
+    
+</body>
+</html>
